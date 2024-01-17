@@ -1,13 +1,10 @@
-name = "anemone"
-description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
+name = "EasyDocs"
+description = "An easy way to create docs for your project"
 license = "MIT"
-homepage = "https://github.com/Speyll/anemone"
-min_version = "0.4.0"
-demo = "https://anemone.pages.dev"
-
-[extra]
-
+homepage = "https://github.com/codeandmedia/zola_easydocs_theme"
+min_version = "0.13.0"
+demo = "https://easydocs.codeandmedia.com"
 
 [author]
-name = "Speyll"
-homepage = "https://speyllsite.pages.dev/"
+name = "Roman Soldatenkov"
+homepage = "https://codeandmedia.com"

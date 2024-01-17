@@ -1,48 +1,25 @@
-base_url = "https://anemone.pages.dev"
-description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
-compile_sass = false
-minify_html = true
-generate_feed = true
-default_language = "en"
-
-taxonomies = [
-    {name = "tags", feed = true},
-]
-
-[languages.fr]
-weight = 2
-languageName = "Français"
-languageCode = "fr"
+base_url = "https://easydocs.codeandmedia.com"
+title = "Docs"
+compile_sass = true
+build_search_index = true
 
 [markdown]
-render_emoji = true
-external_links_target_blank = true
-smart_punctuation = true
-highlight_code = false
-highlight_theme = "gruvbox-dark"
-
-[slugify]
-paths = "on"
-taxonomies = "on"
-anchors = "on"
-
-[link_checker]
-internal_level = "warn"
+highlight_code = true
+highlight_theme = "base16-ocean-light"
 
 [extra]
-author = "Speyll"
-display_author = true
+logo = "https://easydocs.codeandmedia.com/logo.svg"
+release = "https://api.github.com/repos/getzola/zola/releases/latest"
+favicon = "https://www.getzola.org/favicon.ico"
+easydocs_logo_always_clickable = false
 
-favicon = "favicon.ico"
-image = ""
+# For use with offline sites. If set to true links in the nav are generated with the full path indcluding index.html
+# Insired by Abridge theme https://www.getzola.org/themes/abridge/
+# Notes:
+#  - Also requries the base URL to be set to the local folder where the site will be stored eg. base_url = file:///home/user/mysite/public/
+#  - This is not portable and only works with a specific local folder
+easydocs_uglyurls = false
 
-default_theme = "light"
-list_pages = false
-twitter_card = true
-
-header_nav = [
-  { url = "/", name_en = "/home/", name_fr = "/accueil/" },
-  { url = "/about", name_en = "/about/", name_fr = "/concernant/" },
-  { url = "/journal", name_en = "/journal/", name_fr = "/journal/" },
-  { url = "/blog", name_en = "/blog/", name_fr = "/blog/" }
-]
+# Minimum number of headings needed on a page before the headings show in the navigation on the left. Defaults to 5.
+# Can be used for example to always show headings on each page by setting it to 1.
+easydocs_heading_threshold = 5

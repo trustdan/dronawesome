@@ -1,129 +1,28 @@
-# anemone
+## An easy way to create a document library for your project
 
-Introducing "anemone," a minimalist [Zola](https://www.getzola.org) theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas.
+Demo: [https://easydocs.codeandmedia.com/](https://easydocs.codeandmedia.com/)
 
-You can browse the demo website [here](https://anemone.pages.dev/)
-I also use it on my own [website.](https://speyllsite.pages.dev/)
+This theme for [Zola](https://getzola.org) (static site engine) helps you build and publish your project docs easily and fast. Zola is just one binary that outputs html-pages and additional static assets after building your docs written in Markdown. Thus, you can take the theme, your md-files, Zola and gain flexible and simple website for documentation. 
 
-Anemone is a versatile Zola theme that comes with both light and dark variants. You can easily switch between the light and dark themes to suit your preferences.
+### Step-by-step
 
-![Anemone Light and Dark Theme](screenshot.png)
+As you may have heard Zola is quite flexible :) So, the scenario below is one of hundreds possible ways to make things done, feel free to find your best. Also, Zola provides their own mechanism to install and use themes, see [the docs](https://www.getzola.org/documentation/themes/installing-and-using-themes/). 
 
-### Installation
+1. Fork the repo and replace demo-content inside content folder with yours. But take a look to _index.md files. It contains `title` and when you want to have anchor right of your headers add `insert_anchor_links = "right"` to each index. `theme.toml`, screenshot and readme may be deleted too. 
+2. Inside `config.toml` change URL and title on your own. In extra section you can specify path to your GitHub API for version below the logo on nav, favicon and logo itself. Or just remove the lines if you don't need it. Also, you can configure or turn on some additional settings related to Zola. [Specification is here](https://www.getzola.org/documentation/getting-started/configuration/).
+3. In sass/_variables.scss you may change font, color or background if you want.
+4. Almost done. Now, you should decide how you want to build and where will be hosted your website. You can build it locally and upload to somewhere. Or build in GitHub Actions and host on GitHub Pages / Netlify / CloudFlare Pages / AnyS3CloudStorage. [Howto for GitHub Pages](https://www.getzola.org/documentation/deployment/github-pages/). [My example](https://github.com/o365hq/o365hq.com/blob/main/.github/workflows/main.yml) of GitHub workflow with 2-steps build (the first checks for links and spelling errors, the second uploads to Azure). [Dockerfile](https://github.com/codeandmedia/zola_docsascode_theme/blob/master/Dockerfile) to make Docker image.
 
-To get started with Anemone, follow these simple steps:
+## Provided configurations options
 
-1. Download the theme to your `themes` directory:
+These options can be configured in the `extra` section of the [config.toml](config.toml).
+If any are not present it has the same behaviour as the default which is shown in the starter [config.toml](config.toml).
 
-```bash
-cd themes
-git clone https://github.com/Speyll/anemone
-```
+- **easydocs_logo_always_clickable** controls if the logo is always clickable. By default the logo is only clickable if you are not on the home page. If this is enabled it will make the logo clickable when you are on the home page as well. Thus on the home page it will basically just refresh the page as it will take you to the same page.
+- **easydocs_uglyurls** provides support for offline sites that do not use a webserver. If set to true links in the nav are generated with the full path indcluding `index.html`. This functionality was  insired by [Abridge theme](https://www.getzola.org/themes/abridge/). Note that for this to work it also requries the base URL to be set to the local folder where the site will be stored eg. `base_url = file:///home/user/mysite/public/`. Therefore this is not portable and only works with a specific local folder, but does not require a webserver to navigate the site.
+- **easydocs_heading_threshold** controls minimum number of headings needed on a page before the headings show in the navigation on the left. Defaults to 5. Can be used for example to always show headings on each page by setting it to 1.
 
-2. Enable Anemone in your `config.toml`:
+Enjoy your docs!
 
-```toml
-theme = "anemone"
-```
-
-### Options
-
-Anemone provides various options to customize your website:
-
-#### Default Taxonomies
-
-To use tags, add the following code to a page's metadata:
-
-```toml
-[taxonomies]
-tags = ["tag1", "tag2"]
-```
-
-#### Pages List in Homepage
-
-Enable listing of pages in the homepage by adding the following code to `config.toml`:
-
-```toml
-[extra]
-list_pages = true
-```
-
-#### Multilanguage
-
-The theme has a built-in feature that allows you to use multiple languages. For detailed instructions on how to use this feature, you can refer to the [Zola Multilingual documentation](https://www.getzola.org/documentation/content/multilingual/). This documentation provides additional information on how to make the most out of this multilingual capability.
-
-```toml
-[languages.fr]
-weight = 2
-title = "anemone"
-languageName = "Français"
-languageCode = "fr"
-```
-#### Multilanguage-Ready Navigation Bar
-
-Customize the header navigation links with the following code in the `extra` section of `config.toml`:
-
-```toml
-[extra]
-
-header_nav = [
-  { url = "/", name_en = "/home/", name_fr = "/accueil/" },
-  { url = "/about", name_en = "/about/", name_fr = "/concernant/" },
-  { url = "/journal", name_en = "/journal/", name_fr = "/journal/" },
-  { url = "/blog", name_en = "/blog/", name_fr = "/blog/" }
-]
-```
-
-#### Default Theme
-
-To configure the default theme, simply utilize the `default_theme` variable and set it to either `light` or `dark`:
-
-```toml
-[extra]
-default_theme = "light"
-```
-
-#### Display Author Name in Blog Posts
-
-Customize the display of the author's name in your blog posts by toggling the `display_author` variable to either `true` or `false`:
-
-```toml
-[extra]
-display_author = true
-```
-
-### Webrings
-
-Add a webring with a shortcode:
-
-```html
-{{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
-```
-
-#### Add Table of Contents (TOC) to Pages
-
-In a page's frontmatter, set `extra.toc` to `true`:
-
-```toml
-[extra]
-toc = true
-```
-
-### Extra Data
-
-- Set the `author` in both the main config and in pages' metadata.
-- Use the `image` variable in pages to add an image to HTML `<meta>` tags.
-- Similarly, set `favicon` in the main config, and it will be used as the site icon.
-
-#### Disable Twitter Card
-
-Twitter metatags are generated by default. To disable them, set `extra.twitter_card` to `false` in `config.toml`:
-
-```toml
-[extra]
-twitter_card = true
-```
-
-### License
-
-The Anemone theme is available as open source under the terms of the [MIT License](LICENSE).
+* _Icons: [Office UI Fabric Icons](https://uifabricicons.azurewebsites.net/)_
+* _Copy-code-button: [Aaron Luna](https://aaronluna.dev/blog/add-copy-button-to-code-blocks-hugo-chroma/)_

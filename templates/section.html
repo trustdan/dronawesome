@@ -1,25 +1,35 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
+
+{% block title %} {{ config.title }} | {{ section.title }} {% endblock title %}
 
 {% block content %}
-<h1>{{ section.title }}</h1>
+    {% if section.word_count > 0 -%}
+        {{ section.content | safe }}
+    {% else -%}
+        <h2 class="title"> {{ section.title }} </h2>
 
-{{ section.content | safe }}
+        {% if section.subsections -%}
+            <h3>Subsections:</h3>
+            <ul>
+                {% for subsec in section.subsections -%}
+                    {% set sec_ = get_section(path=subsec) -%}
+                    <li><a href="{{ sec_.permalink | safe }}{{ _ugly_url }}">{{ sec_.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif -%}
 
-{% if paginator %}
-{% set pages = paginator.pages %}
-{% else %}
-{% set pages = section.pages %}
-{% endif %}
-
-<ul class="titleList">
-{% for page in pages %}
-  <li>
-    <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
-  </li>
-{% endfor %}
-</ul>
-
-{% if paginator %}
-<div class="metaData">{% if paginator.previous %}<a href="{{ paginator.first }}">⥶</a> &nbsp <a href="{{ paginator.previous }}"><</a>{% endif %} &nbsp {{ paginator.current_index }} / {{ paginator.number_pagers }} &nbsp {% if paginator.next %}<a href="{{ paginator.next }}">></a> &nbsp <a href="{{ paginator.last }}">⥸</a>{% endif %}</div>
-{% endif %}
+        <h3>Pages:</h3>
+        <ul>
+            {% if section.pages -%}
+                {% for page in section.pages -%}
+                    <li><a href="{{ page.permalink | safe }}{{ _ugly_url }}">{{ page.title }}</a></li>
+                {% endfor -%}
+            {% else -%}
+                <li>No pages</li>
+            {% endif %}
+        </ul>
+    {% endif -%}
 {% endblock content %}
+
+
+
